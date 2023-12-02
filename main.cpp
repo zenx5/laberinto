@@ -1,8 +1,12 @@
+#include <stdlib.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include "./constants.cpp"
+#include "./handlers/MouseAction.cpp"
+#include "./handlers/KeyboardAction.cpp"
 
-GLint WIDTH = 600, HEIGHT = 600;
+
 
 int main(int argc, char *argv[])
 {
@@ -10,11 +14,12 @@ int main(int argc, char *argv[])
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
     glutInitWindowSize(WIDTH, HEIGHT );
-    glutCreateWindow("Laberinto 0.1");
+    glutCreateWindow(TITLE);
 
     // glutDisplayFunc(Display);
     // glutReshapeFunc(Reshape);
-    // glutKeyboardFunc(Keyboard);
+    glutKeyboardFunc(KeyboardAction);
+    glutMouseFunc(MouseAction);
 
     glutMainLoop();
 

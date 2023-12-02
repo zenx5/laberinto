@@ -7,6 +7,36 @@
 #include "./handlers/KeyboardAction.cpp"
 
 
+void RenderDisplay() {
+
+    glClearColor(0,0,0,1);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    glColor3ub(0,255,255);
+    glBegin(GL_QUADS);
+        glVertex2f(100,300);
+        glVertex2f(100,100);
+        glVertex2f(300,100);
+        glVertex2f(300,300);
+    glEnd();
+    glFinish();
+}
+
+void Reshape(GLint w, GLint h)
+{
+    // Width = w;
+    // Height = h;
+    glViewport(0, 0, w, h);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, w, 0, h, -1.0, 1.0);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+
 
 int main(int argc, char *argv[])
 {
@@ -16,8 +46,8 @@ int main(int argc, char *argv[])
     glutInitWindowSize(WIDTH, HEIGHT );
     glutCreateWindow(TITLE);
 
-    // glutDisplayFunc(Display);
-    // glutReshapeFunc(Reshape);
+    glutDisplayFunc(RenderDisplay);
+    glutReshapeFunc(Reshape);
     glutKeyboardFunc(KeyboardAction);
     glutMouseFunc(MouseAction);
 

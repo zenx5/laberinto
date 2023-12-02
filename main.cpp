@@ -24,8 +24,6 @@ void RenderDisplay() {
 
 void Reshape(GLint w, GLint h)
 {
-    // Width = w;
-    // Height = h;
     glViewport(0, 0, w, h);
 
     glMatrixMode(GL_PROJECTION);

@@ -14,37 +14,51 @@ La lógica del juego debe implementarse por medio de estas clases:
 • Tesoro: un objeto que hay que recoger para contentar a los dragones. Para coger un tesoro basta por pasar por la casilla donde está. Estas serán colocadas en forma aleatoria.
 • Jugador: El personaje del juego. Puede ir en 4 direcciones, tomar tesoros, entregar tesoros y responder preguntas.
 */
-import { Canvas } from "./Canvas";
-import { Wall } from "./Wall";
+// import { Canvas } from "./Canvas";
+// import { Wall } from "./Wall";
 
 class Maze {
-    constructor( width, height, container ) {
+    constructor( columns, rows, container ) {
         let tileSize = 50;
-        this.canvas = new Canvas( width*tileSize, height*tileSize, container );
-        this.width = width;
-        this.height = height;
+        this.columns = columns;
+        this.rows = rows;
+        this.height = columns*tileSize;
+        this.width = rows*tileSize;
+        this.canvas = new Canvas( this.width, this.height, container );
         this.walls = [];
         this.entities = [];
-
+        //aqui un array de arrays llamado ceils que contendra las casillas y que sera de dimenciones de las columnas y las filas
+        this.ceils = Array.from( { length: rows }, () => Array.from( { length: columns }, () => new Ceil( 'free', 0, 0 ) ) );
+        console.log(this)
     }
 
     addEntity( entity ) {
         this.entities.push( entity );
     }
 
-    addWall( wall ) {
-        this.walls.push( wall );
+
+    addCeil( type, x, y ) {
+        this.ceils[y][x] = new Ceil( type, x, y );
     }
 
     generate( ) {
-        for ( let i = 0; i < this.width; i++ ) {
-            for ( let j = 0; j < this.height; j++ ) {
-                if ( i === 0 || j === 0 || i === this.width - 1 || j === this.height - 1 ) {
-                    this.addWall( new Wall( i, j ) );
-                    console.log(i,j)
+        //colocamos el laberinto en un estado inicial de paredes y espacios libres intercalados
+        for( let x = 0; x < this.columns; x++ ) {
+            for( let y = 0; y < this.rows; y++ ) {
+                if( x % 2 === 0 || y % 2 === 0 ) {
+                    this.addCeil( 'wall', x, y );
+                }
+                else {
+                    this.addCeil( 'free', x, y );
                 }
             }
-            console.log("\n")
         }
+        this.ceils[1][1] = new Ceil( 'init', 1, 1 );
+        this.ceils[this.rows-2][this.columns-2] = new Ceil( 'end' );
+
+    }
+
+    render( ) {
+
     }
 }

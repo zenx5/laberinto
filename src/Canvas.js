@@ -1,9 +1,9 @@
-export class Canvas {
+class Canvas {
     constructor(width, height, container) {
-        container = document.querySelector(container || 'body')
-        var canvas = document.getElementById('canvas')
+        var canvas = document.getElementById(container||'canvas')
         var context = canvas.getContext('2d')
 
+        canvas.style.border = '1px solid black'
         canvas.width = Math.round( width )
         canvas.height = Math.round( height )
         this.canvas = canvas

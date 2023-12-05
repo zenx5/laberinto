@@ -1,4 +1,4 @@
-export class Wall {
+class Wall {
     constructor( maze, x, y ) {
         this.x = x
         this.y = y

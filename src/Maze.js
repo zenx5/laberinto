@@ -19,7 +19,7 @@ La lógica del juego debe implementarse por medio de estas clases:
 
 class Maze {
     constructor( columns, rows, container ) {
-        let tileSize = 50;
+        let tileSize = this.tileSize = 15
         this.columns = columns;
         this.rows = rows;
         this.height = columns*tileSize;
@@ -29,13 +29,15 @@ class Maze {
         this.entities = [];
         //aqui un array de arrays llamado ceils que contendra las casillas y que sera de dimenciones de las columnas y las filas
         this.ceils = Array.from( { length: rows }, () => Array.from( { length: columns }, () => new Ceil( 'free', 0, 0 ) ) );
-        console.log(this)
     }
 
     addEntity( entity ) {
         this.entities.push( entity );
     }
 
+    addWall( wall ) {
+        this.walls.push( wall );
+    }
 
     addCeil( type, x, y ) {
         this.ceils[y][x] = new Ceil( type, x, y );
@@ -54,11 +56,78 @@ class Maze {
             }
         }
         this.ceils[1][1] = new Ceil( 'init', 1, 1 );
-        this.ceils[this.rows-2][this.columns-2] = new Ceil( 'end' );
+        this.ceils[this.rows-2][this.columns-2] = new Ceil( 'end', this.columns-2, this.rows-2 );
 
+        //generamos el camino que une el inicio con el fin y las bifurcaciones
+        this.addCeilToPath( this.ceils[1][1], null, this.ceils[this.rows-2][this.columns-2], 0 )
+
+        return this.ceils;
+    }
+
+    addCeilToPath( currentCeil, from, to, i ) {
+        console.log('iteracion',i)
+        // console.log(this)
+        if( currentCeil.belowToPath ) {
+            // console.log('la celda actual ya pertenece al path o ya fue visitada')
+            return;
+        }
+        currentCeil.belowToPath = true;
+        
+        let directions = ["up", "down", "left", "rigth"].sort( () => Math.random() - 0.5 );
+
+        // console.log('va a entrar en las direcciones',directions)
+        directions.forEach( direction => {
+            // console.log(direction)
+            let nextCeil = this.getNextCeil( currentCeil, direction );
+            if( nextCeil && !nextCeil.belowToPath ) {
+                // console.log('paso en la condicion de existencia de nextCeil')
+                // nextCeil.belowToPath = true;
+                nextCeil.from = currentCeil;
+
+                //Hacer que la celda que esta entre currentCeil y nextCeil se marque como free
+                this.addCeil( 'free', (currentCeil.x + nextCeil.x) / 2, (currentCeil.y + nextCeil.y) / 2 );
+                // console.log(nextCeil, currentCeil, to)
+                this.addCeilToPath( nextCeil, currentCeil, to, i+1 );
+            }
+        })
+    }
+
+    getNextCeil( currentCeil, direction ) {
+        let x = currentCeil.x;
+        let y = currentCeil.y;
+        switch( direction ) {
+            case 'up':
+                y -= 2;
+                break;
+
+            case 'down':
+                y += 2;
+                break;
+
+            case 'left':
+                x -= 2;
+                break;
+
+            case 'rigth':
+                x += 2;
+                break;
+        }
+        if( this.pointBelowToBoard( x, y ) ) {
+            return this.ceils[y][x];
+        }
+    }
+
+    pointBelowToBoard( x, y ) {
+        return x >= 0 && x < this.columns && y >= 0 && y < this.rows;
+    }
+
+    drawWall( wall ) {
+        this.canvas.drawRect( wall.x * this.tileSize, wall.y * this.tileSize, this.tileSize, this.tileSize, 'black' );
     }
 
     render( ) {
-
+        this.walls.forEach( wall => {
+            this.drawWall( wall );
+        })
     }
 }

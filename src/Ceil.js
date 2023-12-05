@@ -4,6 +4,7 @@ class Ceil {
         this.y = y
         this.type = type // free, wall, init, end
         this.belowToPath = false
+        this.from = null;
     }
 
     setType( type ) {

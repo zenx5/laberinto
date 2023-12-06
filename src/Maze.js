@@ -16,26 +16,13 @@ La lógica del juego debe implementarse por medio de estas clases:
 */
 
 class Maze {
-    constructor( columns, rows, container ) {
-        let tileSize = this.tileSize = 15
+    constructor( columns, rows ) {
         this.columns = columns;
         this.rows = rows;
-        this.height = columns*tileSize;
-        this.width = rows*tileSize;
-        this.canvas = new Canvas( this.width, this.height, container );
-        this.walls = [];
-        this.entities = [];
         //aqui un array de arrays llamado ceils que contendra las casillas y que sera de dimenciones de las columnas y las filas
-        this.ceils = Array.from( { length: rows }, () => Array.from( { length: columns }, () => new Ceil( 'free', 0, 0 ) ) );
+        this.ceils = Array.from( { length: rows }, () => Array.from( { length: columns }, () => new Ceil( FREE, 0, 0 ) ) );
     }
 
-    addEntity( entity ) {
-        this.entities.push( entity );
-    }
-
-    addWall( wall ) {
-        this.walls.push( wall );
-    }
 
     addCeil( type, x, y ) {
         this.ceils[y][x] = new Ceil( type, x, y );
@@ -46,15 +33,15 @@ class Maze {
         for( let x = 0; x < this.columns; x++ ) {
             for( let y = 0; y < this.rows; y++ ) {
                 if( x % 2 === 0 || y % 2 === 0 ) {
-                    this.addCeil( 'wall', x, y );
+                    this.addCeil( WALL, x, y );
                 }
                 else {
-                    this.addCeil( 'free', x, y );
+                    this.addCeil( FREE, x, y );
                 }
             }
         }
-        this.ceils[1][1] = new Ceil( 'init', 1, 1 );
-        this.ceils[this.rows-2][this.columns-2] = new Ceil( 'end', this.columns-2, this.rows-2 );
+        this.ceils[1][1] = new Ceil( START, 1, 1 );
+        this.ceils[this.rows-2][this.columns-2] = new Ceil( END, this.columns-2, this.rows-2 );
 
         //generamos el camino que une el inicio con el fin y las bifurcaciones
         this.addCeilToPath( this.ceils[1][1], null, this.ceils[this.rows-2][this.columns-2], 0 )
@@ -63,7 +50,7 @@ class Maze {
     }
 
     addCeilToPath( currentCeil, from, to, i ) {
-        console.log('iteracion',i)
+        // console.log('iteracion',i)
         // console.log(this)
         if( currentCeil.belowToPath ) {
             // console.log('la celda actual ya pertenece al path o ya fue visitada')
@@ -119,13 +106,4 @@ class Maze {
         return x >= 0 && x < this.columns && y >= 0 && y < this.rows;
     }
 
-    drawWall( wall ) {
-        this.canvas.drawRect( wall.x * this.tileSize, wall.y * this.tileSize, this.tileSize, this.tileSize, 'black' );
-    }
-
-    render( ) {
-        this.walls.forEach( wall => {
-            this.drawWall( wall );
-        })
-    }
 }

@@ -14,8 +14,6 @@ La lógica del juego debe implementarse por medio de estas clases:
 • Tesoro: un objeto que hay que recoger para contentar a los dragones. Para coger un tesoro basta por pasar por la casilla donde está. Estas serán colocadas en forma aleatoria.
 • Jugador: El personaje del juego. Puede ir en 4 direcciones, tomar tesoros, entregar tesoros y responder preguntas.
 */
-// import { Canvas } from "./Canvas";
-// import { Wall } from "./Wall";
 
 class Maze {
     constructor( columns, rows, container ) {

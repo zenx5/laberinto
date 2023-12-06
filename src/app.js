@@ -1,6 +1,5 @@
-// import { Maze } from './Maze'
 
-let maze = new Maze( 41, 41, 'root' );
+let maze = new Maze( 47, 47, 'root' );
 let ceils = maze.generate( )
 ceils.forEach( rows => {
     rows.forEach( ceil => {

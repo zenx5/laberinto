@@ -3,22 +3,35 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include "./constants.cpp"
+#include "./classes/ClassNpc.cpp"
+#include "./classes/ClassBox.cpp"
 #include "./handlers/MouseAction.cpp"
 #include "./handlers/KeyboardAction.cpp"
 
 
-void RenderDisplay() {
 
+
+void renderSpace(int coor_x, int coor_y, int size) {
+    glBegin(GL_QUADS);
+        glVertex2f(coor_x, coor_y + size);
+        glVertex2f(coor_x, coor_y);
+        glVertex2f(coor_x + size, coor_y);
+        glVertex2f(coor_x + size, coor_y + size);
+    glEnd();
+}
+
+
+
+void RenderDisplay() {
+    Box box(100);
     glClearColor(0,0,0,1);
     glClear(GL_COLOR_BUFFER_BIT);
-
     glColor3ub(0,255,255);
-    glBegin(GL_QUADS);
-        glVertex2f(100,300);
-        glVertex2f(100,100);
-        glVertex2f(300,100);
-        glVertex2f(300,300);
-    glEnd();
+    box.render();
+    renderSpace(0,0, SIZE_SPACE);
+    renderSpace(100,200, SIZE_SPACE);
+    renderSpace(50,80, SIZE_SPACE);
+
     glFinish();
 }
 

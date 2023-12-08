@@ -26,6 +26,7 @@ class Game {
         this.height = columns * this.tileSize;
         this.width = rows * this.tileSize;
         this.canvas = new Canvas( this.width, this.height, container );
+        this.keyboard = new Keyboard( );
         this.walls = [];
         this.entities = [];
 
@@ -40,9 +41,18 @@ class Game {
         })
 
         //colocamos las entidades en el laberinto, el usuario, los gnomos, los dragones y algunos tesoros
-        new Player( this );
+        this.createPlayer( );
 
         this.render( )
+    }
+
+    createPlayer( ) {
+        const player = new Player( this, 1, 1, this.tileSize, this.tileSize );
+        //cada ves que el usuario se mueva, se actualiza el score
+        window.addEventListener( 'keydown', e => {
+            this.update( );
+            this.render( )
+        })
     }
 
     addWall( wall ) {
@@ -60,11 +70,12 @@ class Game {
     }
 
     render( ) {
+        this.canvas.clear( );
         this.walls.forEach( wall => {
             this.drawWall( wall );
         })
         this.entities.forEach( entity => {
-            entity.render( this.canvas.context );
+            entity.render( this.canvas );
         })
     }
 }

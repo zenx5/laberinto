@@ -53,7 +53,7 @@ class Keyboard {
 		this.down[Event.keyCode] = false;
 	}
 
-	IsDown( Event ) {
-		return this.down[Event.keyCode];
+	IsDown( keyCode ) {
+		return this.down[keyCode];
 	}
 }

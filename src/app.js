@@ -22,14 +22,26 @@ const END = 3;
 class Game {
     constructor( columns, rows, container ) {
         this.maze = new Maze( columns, rows );
+        this.columns = columns;
+        this.rows = rows;
         this.tileSize = 15;
         this.height = columns * this.tileSize;
         this.width = rows * this.tileSize;
         this.canvas = new Canvas( this.width, this.height, container );
         this.keyboard = new Keyboard( );
+
         this.walls = [];
         this.entities = [];
+        this.score = 0;
 
+        this.init( );
+    }
+
+    init( ) {
+        this.walls = [];
+        this.entities = [];
+        this.score = 0;
+        
         let ceils = this.maze.generate( )
         ceils.forEach( rows => {
             rows.forEach( ceil => {
@@ -63,6 +75,18 @@ class Game {
         this.canvas.drawRect( wall.x * this.tileSize, wall.y * this.tileSize, this.tileSize, this.tileSize, 'black' );
     }
 
+    // verifica si una entidad colisiona con alguna pared
+    checkCollisionPlayerWalls( player ) {
+        return !!this.walls.find( wall => {
+            return player.x === wall.x && player.y === wall.y;
+        })
+    }
+
+    gameOver( ) {
+        alert("Has perdido!");
+        this.init( );
+    }
+
     update( ) {
         this.entities.forEach( entity => {
             entity.update( );
@@ -80,4 +104,4 @@ class Game {
     }
 }
 
-new Game( 47, 47, 'root' )
+new Game( 21, 21, 'root' )

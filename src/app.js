@@ -20,13 +20,13 @@ const START = 2;
 const END = 3;
 
 class Game {
-    constructor( columns, rows, container ) {
-        this.maze = new Maze( columns, rows );
-        this.columns = columns;
-        this.rows = rows;
+    constructor( size, container ) {
+        this.columns = size;
+        this.rows = size;
+        this.maze = new Maze( this.columns, this.rows );
         this.tileSize = 15;
-        this.height = columns * this.tileSize;
-        this.width = rows * this.tileSize;
+        this.height = this.columns * this.tileSize;
+        this.width = this.rows * this.tileSize;
         this.canvas = new Canvas( this.width, this.height, container );
         this.keyboard = new Keyboard( );
 
@@ -140,4 +140,4 @@ class Game {
     }
 }
 
-new Game( 21, 21, 'root' )
+new Game( 41, 'root' )

@@ -1,33 +1,50 @@
 const PLAYER_COLOR = "purple";
 
-class Player {
+class Player extends Entity {
     constructor( game, x, y, width, height ) {
-        this.game = game
-        this.x = x
-        this.y = y
-        this.width = width
-        this.height = height
+        super( game, x, y, width, height );
 
-        game.entities.push( this );
+        this.coins = 0;
     }
 
     update( ) {
         const { keyboard } = this.game
 
-        console.log( keyboard.IsDown( keyboard.keys.A ) )
-        if( keyboard.IsDown( keyboard.keys.RIGHT_ARROW ) ) {
+        // console.log(this.x < this.game.columns)
+        // console.log('y',this.y, this.game.rows )
+
+        if( keyboard.IsDown( keyboard.keys.RIGHT_ARROW ) && this.x < this.game.columns -1 ) {
             this.x++;
+            if( this.game.checkCollisionPlayerWalls( this ) ) 
+                this.x--;
         }
-        if( keyboard.IsDown( keyboard.keys.LEFT_ARROW ) ) {
+        if( keyboard.IsDown( keyboard.keys.LEFT_ARROW ) && this.x > 0 ) {
             this.x--;
+            if( this.game.checkCollisionPlayerWalls( this ) ) 
+                this.x++;
         }
-        if( keyboard.IsDown( keyboard.keys.UP_ARROW ) ) {
+        if( keyboard.IsDown( keyboard.keys.UP_ARROW ) && this.y > 0 ) {
             this.y--;
+            if( this.game.checkCollisionPlayerWalls( this ) ) 
+                this.y++;
         }
-        if( keyboard.IsDown( keyboard.keys.DOWN_ARROW ) ) {
+        if( keyboard.IsDown( keyboard.keys.DOWN_ARROW ) && this.y < this.game.rows -1 ) {
             this.y++;
+            if( this.game.checkCollisionPlayerWalls( this ) )
+                this.y--;
         }
-        console.log(this)
+        
+        //comprovamos si en las casillas adyacentes hay alguna entidad con el metodo interactuar
+        this.game.entities.forEach( entity => {
+            if( 
+                entity.y === this.y && (entity.x === this.x+1 || entity.x === this.x-1) ||
+                entity.x === this.x && (entity.y === this.y+1 || entity.y === this.y-1) 
+            ) {
+                console.log("entro")
+                entity.interactuar( this );
+            }
+        });
+
     }
 
     render( canvas ) {

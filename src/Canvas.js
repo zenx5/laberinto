@@ -15,6 +15,13 @@ class Canvas {
         this.context.fillRect(x, y, w, h)
     }
 
+    drawCircle(x, y, radius, color='black') {
+        this.context.fillStyle = color
+        this.context.beginPath( )
+        this.context.arc( x, y, radius, 0, 2 * Math.PI, false )
+        this.context.fill( )
+    }
+
     clear( ) {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }

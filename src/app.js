@@ -54,17 +54,53 @@ class Game {
 
         //colocamos las entidades en el laberinto, el usuario, los gnomos, los dragones y algunos tesoros
         this.createPlayer( );
+        this.createCoins( 5 );
+        this.createGnomes( 5 );
+        this.createDragons( 5 );
 
         this.render( )
     }
 
     createPlayer( ) {
-        const player = new Player( this, 1, 1, this.tileSize, this.tileSize );
+        new Player( this, 1, 1, this.tileSize, this.tileSize );
         //cada ves que el usuario se mueva, se actualiza el score
         window.addEventListener( 'keydown', e => {
             this.update( );
             this.render( )
         })
+    }
+
+    createCoins( numcoins ) {
+        while( numcoins > 0 ) {
+            let x = Math.floor( Math.random( ) * this.columns );
+            let y = Math.floor( Math.random( ) * this.rows );
+            if( this.maze.ceils[x][y].type === FREE ) {
+                new Treasure( this, x, y, this.tileSize, this.tileSize );
+                numcoins--;
+            }
+        }
+    }
+
+    createGnomes( numgnomes ) {
+        while( numgnomes > 0 ) {
+            let x = Math.floor( Math.random( ) * this.columns );
+            let y = Math.floor( Math.random( ) * this.rows );
+            if( this.maze.ceils[x][y].type === FREE ) {
+                new Gnome( this, x, y, this.tileSize, this.tileSize );
+                numgnomes--;
+            }
+        }
+    }
+
+    createDragons( numdragons ) {
+        while( numdragons > 0 ) {
+            let x = Math.floor( Math.random( ) * this.columns );
+            let y = Math.floor( Math.random( ) * this.rows );
+            if( this.maze.ceils[x][y].type === FREE ) {
+                new Dragon( this, x, y, this.tileSize, this.tileSize );
+                numdragons--;
+            }
+        }
     }
 
     addWall( wall ) {
@@ -83,7 +119,7 @@ class Game {
     }
 
     gameOver( ) {
-        alert("Has perdido!");
+        alert("Has perdido!, se iniciara una nueva partida");
         this.init( );
     }
 

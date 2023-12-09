@@ -1,8 +1,8 @@
 class Wall {
-    constructor( maze, x, y ) {
+    constructor( game, x, y ) {
         this.x = x
         this.y = y
-        this.maze = maze
+        this.game = game
     }
     
     draw( ) {

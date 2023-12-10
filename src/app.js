@@ -20,7 +20,7 @@ const START = 2;
 const END = 3;
 
 class Game {
-    constructor( size, container ) {
+    constructor( size, container ) { //size:int, container:HTMLElement
         this.columns = size;
         this.rows = size;
         this.maze = new Maze( this.columns, this.rows );
@@ -81,7 +81,7 @@ class Game {
         }
     }
 
-    createGnomes( numgnomes ) {
+    createGnomes( numgnomes ) { //numgnomes:INT
         while( numgnomes > 0 ) {
             let x = Math.floor( Math.random( ) * this.columns );
             let y = Math.floor( Math.random( ) * this.rows );
@@ -92,7 +92,7 @@ class Game {
         }
     }
 
-    createDragons( numdragons ) {
+    createDragons( numdragons ) { //numdragons:INT
         while( numdragons > 0 ) {
             let x = Math.floor( Math.random( ) * this.columns );
             let y = Math.floor( Math.random( ) * this.rows );
@@ -103,16 +103,17 @@ class Game {
         }
     }
 
-    addWall( wall ) {
+    addWall( wall ) { //wall:Wall
         this.walls.push( wall );
     }
 
-    drawWall( wall ) {
+    drawWall( wall ) { //wall:Wall
         this.canvas.drawRect( wall.x * this.tileSize, wall.y * this.tileSize, this.tileSize, this.tileSize, 'black' );
     }
 
     // verifica si una entidad colisiona con alguna pared
-    checkCollisionPlayerWalls( player ) {
+    // bool
+    checkCollisionPlayerWalls( player ) { //player:Player
         return !!this.walls.find( wall => {
             return player.x === wall.x && player.y === wall.y;
         })

@@ -16,18 +16,20 @@ La lógica del juego debe implementarse por medio de estas clases:
 */
 
 class Maze {
-    constructor( columns, rows ) {
+    constructor( columns, rows ) { //columns:int, rows:int
         this.columns = columns;
         this.rows = rows;
         //aqui un array de arrays llamado ceils que contendra las casillas y que sera de dimenciones de las columnas y las filas
         this.ceils = Array.from( { length: rows }, () => Array.from( { length: columns }, () => new Ceil( FREE, 0, 0 ) ) );
+        //ceils:Ceil[]
     }
 
 
-    addCeil( type, x, y ) {
+    addCeil( type, x, y ) { // type:(wall, ....), x:int, y:int
         this.ceils[y][x] = new Ceil( type, x, y );
     }
 
+    //Ceil[][]
     generate( ) {
         //colocamos el laberinto en un estado inicial de paredes y espacios libres intercalados
         for( let x = 0; x < this.columns; x++ ) {
@@ -49,7 +51,9 @@ class Maze {
         return this.ceils;
     }
 
-    addCeilToPath( currentCeil, from, to, i ) {
+    addCeilToPath( currentCeil, from, to, i ) {  //currentCeil:Ceil, from:Ceil, to:Ceil, i:int
+        // el parametro "i" es solo para debug
+        //PREGUNTAR A MOISS SOBRE API INTEGRAR
         // console.log('iteracion',i)
         // console.log(this)
         if( currentCeil.belowToPath ) {
@@ -77,7 +81,8 @@ class Maze {
         })
     }
 
-    getNextCeil( currentCeil, direction ) {
+    // return Ceil o null
+    getNextCeil( currentCeil, direction ) { //currentCeil:Ceil, direction:int
         let x = currentCeil.x;
         let y = currentCeil.y;
         switch( direction ) {
@@ -101,7 +106,7 @@ class Maze {
             return this.ceils[y][x];
         }
     }
-
+    //Boolean
     pointBelowToBoard( x, y ) {
         return x >= 0 && x < this.columns && y >= 0 && y < this.rows;
     }

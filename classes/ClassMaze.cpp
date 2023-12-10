@@ -3,16 +3,17 @@ class Maze {
         int columns, rows, walls, entities;
 
         Maze(int columns, int rows){
-            this.columns = columns;
-            this.rows = rows;
+            this->columns = columns;
+            this->rows = rows;
+            this->ceils
         }
 
         void addEntity(int index, int entity) {
-            this.entity[ index ] = entity;
+            this->entity[ index ] = entity;
         }
 
         void addCeil( int type, int x, int y ) {
-            this.ceils[y][x] = new Ceil( type, x, y );
+            this->ceils[y][x] = new Ceil( type, x, y );
         }
 
         void generate( void ) {
@@ -27,7 +28,7 @@ class Maze {
                 }
             }
             this->ceils[1][1] = new Ceil( START, 1, 1 );
-            this->ceils[this.rows-2][this.columns-2] = new Ceil( END, this.columns-2, this.rows-2 );
+            this->ceils[this->rows-2][this->columns-2] = new Ceil( END, this->columns-2, this->rows-2 );
 
             //generamos el camino que une el inicio con el fin y las bifurcaciones
             this.addCeilToPath( this.ceils[1][1], null, this.ceils[this.rows-2][this.columns-2], 0 )

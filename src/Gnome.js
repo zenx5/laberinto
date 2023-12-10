@@ -26,10 +26,10 @@ const QUESTIONS = [
 ]
 
 class Gnome extends Entity {
-    constructor( game, x, y, width, height ) {
+    constructor( game, x, y, width, height ) { //game:Game, x:int, y:int, width:int, height:int
         super( game, x, y, width, height );
 
-        this.questions = QUESTIONS;
+        this.questions = QUESTIONS; // questions:Question[]
     }
 
     ask( ) {

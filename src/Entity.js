@@ -1,5 +1,5 @@
 class Entity {
-    constructor( game, x, y, width, height ) {
+    constructor( game, x, y, width, height ) { // game:Game, x:int, y:int, width:int, height:int
         this.game = game
         this.x = x
         this.y = y

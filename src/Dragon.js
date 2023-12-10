@@ -1,15 +1,15 @@
 class Dragon extends Entity {
-    constructor(game, x, y, width, height ) {
+    constructor(game, x, y, width, height ) { //game:Game, x:int, y:int, width:int, height:int
       super( game, x, y, width, height );
 
-      this.requiredCoins = Math.floor(Math.random() * 2) + 1; // Número de tesoros requeridos por el dragón
+      this.requiredCoins = Math.floor(Math.random() * 2) + 1; //requiredCoins:int // Número de tesoros requeridos por el dragón
     }
   
     interactuar( entity ) {
         const mensaje = `¡Hola aventurero! Soy el dragón. Para pasar, necesitas darme ${this.requiredCoins} monedas.`;
         alert(mensaje);
     
-        if (entity.coins >= this.requiredCoins) {
+        if (entity.coins >= this.requiredCoins) { // coins:int
             entity.coins -= this.requiredCoins;
             alert(`¡Bien hecho! Has entregado ${this.requiredCoins} monedas al dragón. Puedes pasar. Te quedan ${entity.coins} monedas.`);
             // this.game.score += this.requiredCoins;

@@ -1,9 +1,8 @@
 const PLAYER_COLOR = "purple";
 
 class Player extends Entity {
-    constructor( game, x, y, width, height ) {
+    constructor( game, x, y, width, height ) { // game:Game, x:int, y:int, width:int, height:int
         super( game, x, y, width, height );
-
         this.coins = 0;
     }
 

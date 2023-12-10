@@ -1,5 +1,5 @@
 class Treasure extends Entity {
-    constructor( game, x, y, width, height ) {
+    constructor( game, x, y, width, height ) { // game:Game, x:int, y:int, width:int, height:int
       super( game, x, y, width, height );
 
       this.coins = Math.floor(Math.random() * 3) + 1;

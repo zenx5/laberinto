@@ -2,13 +2,37 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
+#include <math.h>
+#include <cmath>
 #include "./constants.cpp"
-#include "./classes/ClassNpc.cpp"
-#include "./classes/ClassBox.cpp"
-#include "./handlers/MouseAction.cpp"
-#include "./handlers/KeyboardAction.cpp"
+
+//Canvas
+#include "./classes/ClassCanvas.cpp"
+//Game
+// #include "./classes/ClassGame.cpp"
 
 
+//Entity
+#include "./classes/ClassEntity.cpp"
+//Treasure
+// #include "./classes/ClassTreasure.cpp"
+//Dragon
+// #include "./classes/ClassDragon.cpp"
+//Gnome
+// #include "./classes/ClassDragon.cpp"
+//Player
+//Keyboard
+//Ceil
+#include "./classes/ClassCeil.cpp"
+//Wall
+//Maze
+#include "./classes/ClassMaze.cpp"
+//app
+
+
+Canvas canvas;
+Entity player(START_X, START_Y , SIZE, SIZE);
+Maze laberinto(SIZE, WIDTH, HEIGHT);
 
 
 void renderSpace(int coor_x, int coor_y, int size) {
@@ -23,15 +47,10 @@ void renderSpace(int coor_x, int coor_y, int size) {
 
 
 void RenderDisplay() {
-    Box box(100);
-    glClearColor(0,0,0,1);
+    glClearColor(BGRED, BGGREEN, BGBLUE, 1);
     glClear(GL_COLOR_BUFFER_BIT);
-    glColor3ub(0,255,255);
-    box.render();
-    renderSpace(0,0, SIZE_SPACE);
-    renderSpace(100,200, SIZE_SPACE);
-    renderSpace(50,80, SIZE_SPACE);
-
+    laberinto.render( canvas );
+    player.render( canvas );
     glFinish();
 }
 
@@ -47,11 +66,46 @@ void Reshape(GLint w, GLint h)
     glLoadIdentity();
 }
 
+void KeyboardAction(unsigned char key, int x, int y) {
+
+    int position;
+    switch( key ) {
+        case 'q':
+        case 'Q':
+            exit(0);
+            break;
+        case UP:
+            position = player.moveUp(SLOW_STEP);
+            if( position > HEIGHT-2*SIZE || !laberinto.isFree(player) ) {
+                player.moveDown(SLOW_STEP);
+            }
+            break;
+        case DOWN:
+            position = player.moveDown(SLOW_STEP);
+            if( position < SIZE || !laberinto.isFree(player)  ) {
+                player.moveUp(SLOW_STEP);
+            }
+            break;
+        case LEFT:
+            position = player.moveLeft(SLOW_STEP);
+            if( position < SIZE || !laberinto.isFree(player)  ) {
+                player.moveRight(SLOW_STEP);
+            }
+            break;
+        case RIGHT:
+            position = player.moveRight(SLOW_STEP);
+            if( position > WIDTH-2*SIZE || !laberinto.isFree(player)  ) {
+                player.moveLeft(SLOW_STEP);
+            }
+            break;
+    }
+    RenderDisplay();
+}
+
 
 
 int main(int argc, char *argv[])
 {
-
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
     glutInitWindowSize(WIDTH, HEIGHT );
@@ -60,10 +114,8 @@ int main(int argc, char *argv[])
     glutDisplayFunc(RenderDisplay);
     glutReshapeFunc(Reshape);
     glutKeyboardFunc(KeyboardAction);
-    glutMouseFunc(MouseAction);
 
     glutMainLoop();
-
 
     return 0;
 }

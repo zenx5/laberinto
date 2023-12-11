@@ -4,22 +4,18 @@ class NPC {
 
         void moveUp(int steps){
             this->coor_y += steps * this->size;
-            this->render();
         }
 
         void moveDown(int steps){
             this->coor_y -= steps * this->size;
-            this->render();
         }
 
         void moveLeft(int steps){
             this->coor_x -= steps * this->size;
-            this->render();
         }
 
         void moveRight(int steps){
             this->coor_x += steps * this->size;
-            this->render();
         }
 
         static void render();

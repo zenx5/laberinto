@@ -12,9 +12,9 @@
 #define RIGHT '6'
 #define FILL true
 #define NOTFILL false
-#define BGRED 0
-#define BGGREEN 0
-#define BGBLUE 0
+#define BGRED 255
+#define BGGREEN 255
+#define BGBLUE 255
 //Entidades
 #define ENTITY 1
 #define TREASURE 2

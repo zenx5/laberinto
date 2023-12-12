@@ -108,14 +108,20 @@ class Maze {
                     if( this->ceils[i][j].type==WALL ) {
                         int color[] = {255,255,255};
                         canvas.drawRect( i*this->size, j*this->size, this->size, this->size, color);
+                        int lcolor[] = {0,0,0};
+                        canvas.drawRect( i*this->size+2, j*this->size+2, this->size-2, this->size-2, lcolor);
                     }
                     else if( this->ceils[i][j].type==START ) {
-                        int color[] = {255,100,100};
+                        int color[] = {255,255,255};
                         canvas.drawRect( i*this->size, j*this->size, this->size, this->size, color);
+                        int lcolor[] = {255,100,100};
+                        canvas.drawRect( i*this->size+2, j*this->size+2, this->size-2, this->size-2, lcolor);
                     }
                     else if( this->ceils[i][j].type==END ) {
-                        int color[] = {255,100,255};
+                        int color[] = {255,255,255};
                         canvas.drawRect( i*this->size, j*this->size, this->size, this->size, color);
+                        int lcolor[] = {255,100,255};
+                        canvas.drawRect( i*this->size+2, j*this->size+2, this->size-2, this->size-2, lcolor);
                     }
                 }
             }

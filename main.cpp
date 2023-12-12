@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB);
-    glutInitWindowSize(WIDTH, HEIGHT );
+    glutInitWindowSize(WIDTH + 200, HEIGHT );
     glutCreateWindow(TITLE);
 
     glutDisplayFunc(RenderDisplay);

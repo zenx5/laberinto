@@ -11,8 +11,10 @@ class Entity {
         }
 
         void render( Canvas canvas ) {
-            int color[] = {0,0,255};
+            int color[] = {255,255,255};
             canvas.drawRect( this->x, this->y, this->width, this->height, color);
+            int lcolor[] = {0,0,255};
+            canvas.drawRect( this->x+2, this->y+2, this->width-2, this->height-2, lcolor);
         };
 
         int moveUp(int steps){

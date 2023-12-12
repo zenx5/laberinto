@@ -25,9 +25,24 @@ class Maze {
                     if( i==0 || i==this->width-1 || j==0 || j==this->height-1 ) {
                         this->entities[i][j] = WALL;
                         this->ceils[i][j] = Ceil(WALL, i, j);
+                        this->ceils[5][5] = Ceil(WALL, i, j);
+                                    this->ceils[8][5] = Ceil(WALL, i, j);
                         this->ceils[5][6] = Ceil(WALL, i, j);
+                                    this->ceils[8][6] = Ceil(WALL, i, j);
                         this->ceils[5][7] = Ceil(WALL, i, j);
+                                    this->ceils[8][7] = Ceil(WALL, i, j);
                         this->ceils[5][8] = Ceil(WALL, i, j);
+                            this->ceils[6][8] = Ceil(WALL, i, j);
+                                this->ceils[7][8] = Ceil(WALL, i, j);
+                                    this->ceils[8][8] = Ceil(WALL, i, j);
+                        this->ceils[5][9] = Ceil(WALL, i, j);
+                                    this->ceils[8][9] = Ceil(WALL, i, j);
+                        this->ceils[5][10] = Ceil(WALL, i, j);
+                                    this->ceils[8][10] = Ceil(WALL, i, j);
+                        this->ceils[5][11] = Ceil(WALL, i, j);
+                            this->ceils[6][11] = Ceil(WALL, i, j);
+                                this->ceils[7][11] = Ceil(WALL, i, j);
+                                    this->ceils[8][11] = Ceil(WALL, i, j);
                     } else {
                         this->entities[i][j] = FREE;
                         this->ceils[i][j] = Ceil(FREE, i, j);

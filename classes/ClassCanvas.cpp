@@ -8,7 +8,16 @@ class Canvas {
                 glVertex2f(x + width, y);
                 glVertex2f(x + width, y + height);
             glEnd();
+        }
 
+        void drawRect2(int x1, int y1, int x2, int y2, int color[]) {
+            glColor3ub(color[0], color[1], color[2]);
+            glBegin(GL_QUADS);
+                glVertex2f(x1, y2);
+                glVertex2f(x1, y1);
+                glVertex2f(x2, y1);
+                glVertex2f(x2, y2);
+            glEnd();
         }
 
         void drawCircle(int cx, int cy, float radius, int color[], bool fill) {

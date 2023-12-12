@@ -1,3 +1,4 @@
+
 #include <stdlib.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -28,11 +29,12 @@
 //Maze
 #include "./classes/ClassMaze.cpp"
 //app
-
+#include "./classes/ClassTextBox.cpp"
 
 Canvas canvas;
 Entity player(START_X, START_Y , SIZE, SIZE);
 Maze laberinto(SIZE, WIDTH, HEIGHT);
+TextBox textbox(1, 2);
 
 
 void renderSpace(int coor_x, int coor_y, int size) {
@@ -45,11 +47,18 @@ void renderSpace(int coor_x, int coor_y, int size) {
 }
 
 
-
 void RenderDisplay() {
     glClearColor(BGRED, BGGREEN, BGBLUE, 1);
     glClear(GL_COLOR_BUFFER_BIT);
     laberinto.render( canvas );
+    textbox.setColor(0,0,0);
+    textbox.setText(canvas, "abc", 3, WIDTH + 20, HEIGHT - 20);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 40);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 60);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 80);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 100);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 120);
+    textbox.setText(canvas, "cccc", 4, WIDTH + 20, HEIGHT - 140);
     player.render( canvas );
     glFinish();
 }
